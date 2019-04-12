@@ -20,4 +20,17 @@ public class UserRepositoryShould {
 
         assertThat(userFound, is(user));
     }
+
+    @Test
+    public void retrieve_added_user_by_name() {
+        UserRepository userRepository = new UserRepository();
+        User user = new User(1, "new user");
+        userRepository.add(user);
+
+
+        User userFound = userRepository.getName("new user").get();
+
+
+        assertThat(userFound, is(user));
+    }
 }

@@ -23,4 +23,10 @@ public class UserRepository {
                 .filter(u -> u.id() == id)
                 .findFirst();
     }
+
+    public Optional<User> getName(String name) {
+        return users.stream()
+                .filter(u -> u.name() == name )
+                .findFirst();
+    }
 }
