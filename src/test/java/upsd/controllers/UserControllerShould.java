@@ -1,6 +1,7 @@
 package upsd.controllers;
 
 import com.eclipsesource.json.JsonObject;
+import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
 import spark.Request;
@@ -17,6 +18,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class UserControllerShould {
+
+    private static final String EMPTY_BODY = "";
 
     private Request request;
     private Response response;
@@ -52,8 +55,8 @@ public class UserControllerShould {
 
         String actual = userController.getById(request, this.response);
 
-        verify(response).status(404);
-        assertThat(actual, is(""));
+        verify(response).status(HttpStatus.NOT_FOUND_404);
+        assertThat(actual, is(EMPTY_BODY));
     }
 
     private String jsonStringFor(User user) {

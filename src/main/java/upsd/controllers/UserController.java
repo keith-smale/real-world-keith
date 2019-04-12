@@ -1,6 +1,7 @@
 package upsd.controllers;
 
 import com.eclipsesource.json.JsonObject;
+import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 import upsd.domain.User;
@@ -11,6 +12,7 @@ import java.util.Optional;
 public class UserController {
 
     private static final String EMPTY_BODY = "";
+
     private final UserRepository userRepository;
 
     public UserController(UserRepository userRepository) {
@@ -27,7 +29,7 @@ public class UserController {
             return jsonStringFor(userFound.get());
         }
 
-        res.status(404);
+        res.status(HttpStatus.NOT_FOUND_404);
         return EMPTY_BODY;
     }
 
