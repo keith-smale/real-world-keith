@@ -33,6 +33,10 @@ public class UserController {
         return EMPTY_BODY;
     }
 
+    public String getByName(Request req, Response res) {
+        return EMPTY_BODY;
+    }
+
     private String jsonStringFor(User user) {
         return new JsonObject()
                 .add("id", user.id())
