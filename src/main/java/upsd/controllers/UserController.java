@@ -33,6 +33,15 @@ public class UserController {
         return EMPTY_BODY;
     }
 
+    public String getByName(Request req, Response res) {
+        String name = req.params(":name");
+
+        User userFound = userRepository.getName(name).get();
+
+        res.type("application/json");
+        return jsonStringFor(userFound);
+    }
+
     private String jsonStringFor(User user) {
         return new JsonObject()
                 .add("id", user.id())

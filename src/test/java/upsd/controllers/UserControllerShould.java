@@ -4,6 +4,7 @@ import com.eclipsesource.json.JsonObject;
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.BDDMockito;
 import spark.Request;
 import spark.Response;
 import upsd.domain.User;
@@ -57,6 +58,17 @@ public class UserControllerShould {
 
         verify(response).status(HttpStatus.NOT_FOUND_404);
         assertThat(actual, is(EMPTY_BODY));
+    }
+
+    @Test
+    public void return_user_for_supplied_name() {
+        given(request.params(":name")).willReturn("bob");
+        given(userRepository.getName("bob")).willReturn(Optional.of(USER));
+
+        String actual = userController.getByName(request, this.response);
+
+        verify(response).type("application/json");
+        assertThat(actual, is(jsonStringFor(USER)));
     }
 
     private String jsonStringFor(User user) {
