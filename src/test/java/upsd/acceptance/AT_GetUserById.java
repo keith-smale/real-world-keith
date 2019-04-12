@@ -1,5 +1,7 @@
 package upsd.acceptance;
 
+import io.restassured.http.ContentType;
+import org.eclipse.jetty.http.HttpStatus;
 import org.junit.Test;
 import upsd.domain.User;
 import upsd.helpers.Helper;
@@ -15,8 +17,8 @@ public class AT_GetUserById {
 
 
         get("/users/1").then()
-                .statusCode(200)
-                .contentType("application/json")
+                .statusCode(HttpStatus.OK_200)
+                .contentType(ContentType.JSON)
                 .body("id", is(1))
                 .body("name", is("sam"));
     }
@@ -24,7 +26,7 @@ public class AT_GetUserById {
     @Test
     public void return_404_and_no_user_found_for_specified_id() {
         get("/users/2").then()
-                .statusCode(404);
+                .statusCode(HttpStatus.NOT_FOUND_404);
     }
 
 }
