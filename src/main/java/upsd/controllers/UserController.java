@@ -1,12 +1,17 @@
 package upsd.controllers;
 
 import com.eclipsesource.json.JsonObject;
+import org.eclipse.jetty.http.HttpStatus;
 import spark.Request;
 import spark.Response;
 import upsd.domain.User;
 import upsd.repositories.UserRepository;
 
+import java.util.Optional;
+
 public class UserController {
+
+    private static final String EMPTY_BODY = "";
 
     private final UserRepository userRepository;
 
@@ -17,11 +22,15 @@ public class UserController {
     public String getById(Request req, Response res) {
         int id = Integer.parseInt(req.params(":id"));
 
-        User userFound = userRepository.getBy(id).get();
+        Optional<User> userFound = userRepository.getBy(id);
 
-        res.type("application/json");
+        if (userFound.isPresent()) {
+            res.type("application/json");
+            return jsonStringFor(userFound.get());
+        }
 
-        return jsonStringFor(userFound);
+        res.status(HttpStatus.NOT_FOUND_404);
+        return EMPTY_BODY;
     }
 
     private String jsonStringFor(User user) {
