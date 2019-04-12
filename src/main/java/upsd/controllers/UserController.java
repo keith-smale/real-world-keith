@@ -26,12 +26,11 @@ public class UserController {
             res.type("application/json");
 
             return jsonStringFor(userFound.get());
-        } else {
-
-            res.status(404);
-
-            return EMPTY_BODY;
         }
+
+        res.status(404);
+
+        return EMPTY_BODY;
 
     }
 
