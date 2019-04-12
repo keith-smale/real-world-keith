@@ -21,17 +21,14 @@ public class UserController {
         int id = Integer.parseInt(req.params(":id"));
 
         Optional<User> userFound = userRepository.getBy(id);
-        if (userFound.isPresent()){
 
+        if (userFound.isPresent()) {
             res.type("application/json");
-
             return jsonStringFor(userFound.get());
         }
 
         res.status(404);
-
         return EMPTY_BODY;
-
     }
 
     private String jsonStringFor(User user) {
