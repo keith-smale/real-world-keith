@@ -13,12 +13,12 @@ public class AT_GetUserByName {
 
     @Test
     public void return_200_and_user_found_for_specified_name() {
-        Helper.add(new User(3,"neil"));
+        Helper.add(new User(1,"bob"));
 
-        get("/users/search?name=neil").then()
+        get("/users/search?name=bob").then()
                 .statusCode(HttpStatus.OK_200)
                 .contentType(ContentType.JSON)
-                .body("id", is(3))
-                .body("name", is("neil"));
+                .body("id", is(1))
+                .body("name", is("bob"));
     }
 }

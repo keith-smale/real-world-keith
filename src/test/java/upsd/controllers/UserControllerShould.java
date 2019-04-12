@@ -62,7 +62,8 @@ public class UserControllerShould {
 
     @Test
     public void return_user_for_supplied_name() {
-        given(request.params(":name")).willReturn("neil");
+        given(request.params(":name")).willReturn("bob");
+        given(userRepository.getName("bob")).willReturn(Optional.of(USER));
 
         String actual = userController.getByName(request, this.response);
 
